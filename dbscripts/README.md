@@ -15,12 +15,16 @@ The scripts here expect that the `data/` directory contains:
  - The gzipped CSV files of the [summary data](../summaries/README.md), as produced by the data processing scripts.
   - `states-months/*.gz`: monthly state data - files will be unzipped and concatenated
   - `districts/*.gz`: monthly districts data - files will be unzipped and concatenated
+  - `states-distribution/*.gz`: state quintile distribution data - files will be unzipped and concatenated
+  - `districts-distribution/*.gz`: district quintile distribution data - files will be unzipped and concatenated
  - `DISTRICT_11.*`: the 2011 India district boundaries shapefile from MLInfo
  - `UD_vills_CCODE01.csv`: Data from the RGGVY program
  - `villages.csv`: Villagecodes and associated lat,lon
 
-Note: if you're producing your own monthly aggregate data, you can place `districts.csv` and `states-months.csv`
-directly in the `data/` directory, in lieu of making gzipped chunks. Refer to file structure descriptions [here](../summaries/README.md).
+Note: if you're producing your own monthly aggregate data, you can place `districts.csv`, `states-months.csv`,
+`districts-distribution.csv`, `states-distribution.csv` directly in the `data/`
+directory, in lieu of making gzipped chunks. Refer to file structure
+descriptions [here](../summaries/README.md).
 
 To run all the database scripts run `make DATABASE_URL=$DATABASE_URL`
 

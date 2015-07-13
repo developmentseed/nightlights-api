@@ -20,6 +20,16 @@ state, district, year, month, satellite, num_observations, vis_mean, vis_sd, vis
 state, year, month, satellite, num_observations, vis_mean, vis_sd, vis_min, vis_median, vis_max
 ```
 
+**`districts_distribution.csv`**
+```
+state, district, year, month, satellite, quintile, min, max
+```
+
+**`states_distribution.csv`**
+```
+state, year, month, satellite, quintile, min, max
+```
+
 **Column Info:**
 latitude, longitude: decimal degrees
 state: state name (e.g. 'Uttar Pradesh')
@@ -28,6 +38,7 @@ year: numeric, e.g. 2011
 month: numeric, month of year, 1 == January
 satellite: string (e.g. 'F10')
 num_observations, vis_mean, vis_sd, vis_min, vis_median, vis_max: numeric
+quintile, min, max: quintile number (1-5), min value for that quintile, max value for that quintile
 
 Instructions for generating these data from the raw nightly TIF files are below.
 
