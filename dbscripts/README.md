@@ -6,18 +6,21 @@ Before running the `Makefile` make sure you have the following installed:
 - Postgres 9.0+ and PostGIS 2.1.7+
 - R 3.1.2
 - ogr2ogr
-- tippecanoe
+- tippecanoe (only if you're generating the sample village tileset)
 
 ## Installing
 
 The scripts here expect that the `data/` directory contains:
 
  - The gzipped CSV files of the [summary data](../summaries/README.md), as produced by the data processing scripts.
-  - `states-months/`: monthly state data
-  - `districts`: monthly districts data
+  - `states-months/*.gz`: monthly state data - files will be unzipped and concatenated
+  - `districts/*.gz`: monthly districts data - files will be unzipped and concatenated
  - `DISTRICT_11.*`: the 2011 India district boundaries shapefile from MLInfo
  - `UD_vills_CCODE01.csv`: Data from the RGGVY program
  - `villages.csv`: Villagecodes and associated lat,lon
+
+Note: if you're producing your own monthly aggregate data, you can place `districts.csv` and `states-months.csv`
+directly in the `data/` directory, in lieu of making gzipped chunks. Refer to file structure descriptions [here](../summaries/README.md).
 
 To run all the database scripts run `make DATABASE_URL=$DATABASE_URL`
 

@@ -1,5 +1,36 @@
 # Summary Data
 
+The monthly summary data needed by the nightlights-api are as follows:
+
+**`villages.csv`:** the villages, with location and region info.
+This file *should* have a header, and the following structure:
+```
+villagecode,longitude,latitude,state,district,acid
+```
+
+The following files, containing the time series, should *not* have headers.
+
+**`districts.csv`**
+```
+state, district, year, month, satellite, num_observations, vis_mean, vis_sd, vis_min, vis_median, vis_max
+```
+
+**`states_months.csv`**
+```
+state, year, month, satellite, num_observations, vis_mean, vis_sd, vis_min, vis_median, vis_max
+```
+
+**Column Info:**
+latitude, longitude: decimal degrees
+state: state name (e.g. 'Uttar Pradesh')
+district: district name (e.g., 'Hardoi')
+year: numeric, e.g. 2011
+month: numeric, month of year, 1 == January
+satellite: string (e.g. 'F10')
+num_observations, vis_mean, vis_sd, vis_min, vis_median, vis_max: numeric
+
+Instructions for generating these data from the raw nightly TIF files are below.
+
 ## Dependencies
 
 The following pipeline depends on:
