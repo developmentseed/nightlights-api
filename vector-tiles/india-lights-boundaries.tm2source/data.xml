@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Map[]>
+<Map srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+
+<Parameters>
+  <Parameter name="attribution"><![CDATA[India district boundaries © 2011-2015 ML Infomap]]></Parameter>
+  <Parameter name="center">81.4307,26.8633,6</Parameter>
+  <Parameter name="description"><![CDATA[India 2011 census boundaries]]></Parameter>
+  <Parameter name="format">pbf</Parameter>
+  <Parameter name="json"><![CDATA[{"vector_layers":[{"id":"states","description":"","fields":{"key":"String","tot_pop":"Number","f_pop":"Number","tot_lit":"Number"}},{"id":"districts","description":"India Lights Boundaries","fields":{"key":"String","state_key":"String","tot_pop":"Number","f_pop":"Number","tot_lit":"Number"}}]}]]></Parameter>
+  <Parameter name="maxzoom">9</Parameter>
+  <Parameter name="minzoom">0</Parameter>
+  <Parameter name="name"><![CDATA[india-lights - boundaries]]></Parameter>
+</Parameters>
+
+
+<Layer name="states"
+  buffer-size="8"
+  srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+    
+    <Datasource>
+       <Parameter name="dbname"><![CDATA[india-lights]]></Parameter>
+       <Parameter name="extent"><![CDATA[68,6,98,36]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+       <Parameter name="geometry_table"><![CDATA[]]></Parameter>
+       <Parameter name="host"><![CDATA[localhost]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="max_size"><![CDATA[512]]></Parameter>
+       <Parameter name="password"><![CDATA[]]></Parameter>
+       <Parameter name="port"><![CDATA[5432]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT geom,
+ state_key as key, tot_pop, f_pop, tot_lit
+ FROM states_boundaries
+ WHERE geom && !bbox!
+ AND z(!scale_denominator!) >= 6
+ UNION ALL
+ SELECT
+   geom_simplified as geom,
+   state_key as key, tot_pop, f_pop, tot_lit
+ FROM states_boundaries
+ WHERE geom && !bbox!
+ AND z(!scale_denominator!) < 6
+) as state]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="user"><![CDATA[anand]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Layer name="districts"
+  buffer-size="8"
+  srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+    
+    <Datasource>
+       <Parameter name="dbname"><![CDATA[india-lights]]></Parameter>
+       <Parameter name="extent"><![CDATA[68,6,98,36]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+       <Parameter name="geometry_table"><![CDATA[]]></Parameter>
+       <Parameter name="host"><![CDATA[localhost]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="max_size"><![CDATA[512]]></Parameter>
+       <Parameter name="password"><![CDATA[]]></Parameter>
+       <Parameter name="port"><![CDATA[5432]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+   geom,
+   db.district_key as key,
+   d.state_key state_key,
+   tot_pop, f_pop, tot_lit
+ FROM districts_boundaries db, districts d
+ WHERE geom && !bbox!
+ AND z(!scale_denominator!) = 9
+ AND db.district_key = d.district_key
+ UNION ALL
+ SELECT
+   geom_simplified as geom,
+   db.district_key as key,
+   d.state_key state_key,
+  tot_pop, f_pop, tot_lit
+ FROM districts_boundaries db, districts d
+ WHERE geom && !bbox!
+ AND z(!scale_denominator!) <= 8
+ AND db.district_key = d.district_key
+) as district]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="user"><![CDATA[anand]]></Parameter>
+    </Datasource>
+  </Layer>
+
+</Map>

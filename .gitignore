@@ -1,0 +1,29 @@
+#########################
+# Local 
+#########################
+
+local.js
+dbscripts/data/*
+.RHistory
+*.Rproj*
+.Rproj.user
+
+#########################
+# NPM
+#########################
+
+node_modules
+lib-cov
+*.seed
+*.log
+*.out
+*.pid
+npm-debug.log
+
+#########################
+# docs
+#########################
+
+doc/*
+
+

@@ -1,0 +1,7 @@
+ALTER TABLE states_boundaries ADD COLUMN state_key varchar(40);
+UPDATE states_boundaries SET state_key=lower(replace(name_1,' ','-'));
+
+ALTER TABLE districts_boundaries ADD COLUMN district_key varchar(45);
+UPDATE districts_boundaries SET
+  district_key = lower(replace(name_1,' ','-')) || '-' || lower(replace(name_2,' ', '-'));
+

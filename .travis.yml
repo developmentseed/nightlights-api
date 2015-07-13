@@ -1,0 +1,27 @@
+language: node_js
+node_js:
+- '0.10'
+
+env: 
+  global:
+  - PRODUCTION_BRANCH=master
+  - GH_REF=github.com/developmentseed/india-lights-api.git
+  - PGSSLMODE=require
+  - secure: kTCs3Q5sf5DbGVQT2xKuiD/gbsYsy372tZtC0DPIixopUgmMzeB9UP1EMVbPakQ7g4v/CMiz59CgiZ2QSFCLeh2DvzhT50cWRu1xBLTRzOmj1W0osrSapKhRH1rwXmEwNtsRj29X+3eJJUY6OHX0xIkHT0cU2XHssKsMnXLTHwc=
+
+before_install:
+  - chmod +x ./.build_scripts/doc_deploy.sh
+
+script: npm test
+
+after_success:
+  - ./.build_scripts/doc_deploy.sh
+
+deploy:
+  provider: heroku
+  api_key: 
+    secure: ANh95/CkNyOlasm7ttcf//eyWlnd+W/KgTdZAorK/fHcfjyCykqYIDDCtd2IQDbYzdpVlv5vIX37sli4Muwn8FXifEaWTjqfmYVBjvy2VDrhmX7OsotsX+7o3jEREZs/kjaTOBR67fiDYIxvTlymxs4ZMW8hnPmSmXCBtMIcML4=
+  app: india-lights
+  on:
+    repo: developmentseed/india-lights-api
+    branch: develop
