@@ -8,7 +8,12 @@ This file *should* have a header, and the following structure:
 villagecode,longitude,latitude,state,district,acid
 ```
 
-The following files, containing the time series, should *not* have headers.
+The following CSV files, containing the time series, should *not* have headers.
+
+**`months/*.gz`**: Since the village-level data is quite large, it is expected in (any number of) gzipped pieces, within a folder called `months`.  Comma-separated data should be in the following order (again, with no header):
+```
+villagecode, year, month, satellite, num_observations, vis_mean, vis_sd, vis_min, vis_median, vis_max
+```
 
 **`districts.csv`**
 ```
